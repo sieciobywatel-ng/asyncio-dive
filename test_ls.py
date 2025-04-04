@@ -63,12 +63,10 @@ def tree(tmp_path):
     for f in files:
         f.touch(exist_ok=True)
 
-    # print(directories, files)
-
     os.system(f'tree {tmp_path}')
     for f in [*directories, *files]:
         assert f.exists()
 
     yield root
     # cleanup
-    # shutil.rmtree(root)
+    shutil.rmtree(root)
