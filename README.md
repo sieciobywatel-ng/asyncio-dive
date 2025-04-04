@@ -1,12 +1,13 @@
 TODO:
 
 - [&sdot;] write simple async application traversing directory tree
-    - [&sdot;] first, start with sync version
+    - [✓] first, start with sync version
         - [&checkmark;] works on file
         - [✓]] works on directory
         - [✓]] can go inside sub directories
     - [⋅] tests it works, create a test suite
     - [ ] change execution to async
+- [ ] add pre-commit, linting, blacking #nice-to-have
 - [ ] maybe add tests showing what works and how and what not
 
 
