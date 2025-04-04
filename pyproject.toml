@@ -1,0 +1,7 @@
+[project]
+name = "asyncio-dive"
+version = "0.1.0"
+description = "Refresh asyncio knowledge"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
