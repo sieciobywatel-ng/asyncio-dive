@@ -15,6 +15,7 @@ def ls(path: Path) -> Iterable[Path]:
     else:
         yield path
 
+
 def main():
     print("Hello from asyncio-dive!")
 
