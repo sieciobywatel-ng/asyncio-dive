@@ -10,11 +10,10 @@ def ls(path: Path) -> Iterable[Path]:
     """
     # nice-to-have: change to match
     path = Path(path)
+    yield path
     if path.is_dir():
-        yield from map(ls, path.iterdir())
-    else:
-        yield path
-
+        for child in path.iterdir():
+            yield from ls(child)
 
 def main():
     print("Hello from asyncio-dive!")
