@@ -1,4 +1,5 @@
 from typing import Iterable
+from typing import Union
 
 # import asyncio
 from pathlib import Path
@@ -9,15 +10,16 @@ def ls(path: Path) -> Iterable[Path]:
     Traverse a given path, yielding paths of files and directories
     """
     # nice-to-have: change to match
-    path = Path(path)
+    path: Path = Path(path) # type: ignore[no-redef]
     yield path
     if path.is_dir():
-        for child in path.iterdir():
+        for child in path.iterdir(): # child: Path
             yield from ls(child)
 
-def main():
+def main() -> None:
     # procs should exist on every POSIX system and not be too long
-    processors = ls('/dev/cpu')
+    path = Path('/dev/cpu')
+    processors: Iterable[Path] = ls(path)
     for cpu in processors:
         print(cpu)
     print("Hello from asyncio-dive!")
@@ -25,5 +27,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
