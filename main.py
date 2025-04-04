@@ -16,6 +16,10 @@ def ls(path: Path) -> Iterable[Path]:
             yield from ls(child)
 
 def main():
+    # procs should exist on every POSIX system and not be too long
+    processors = ls('/dev/cpu')
+    for cpu in processors:
+        print(cpu)
     print("Hello from asyncio-dive!")
 
 
