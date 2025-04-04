@@ -10,6 +10,8 @@ def ls(path: Path) -> Generator[Path, None, None]:
     Traverse a given path, yielding paths of files and directories
     """
     # nice-to-have: change to match
+    # TODO: should we worry about looped symlinks?
+    #    for production, we should, in this context, let's ignore
     path: Path = Path(path) # type: ignore[no-redef]
     yield path
     if path.is_dir():
