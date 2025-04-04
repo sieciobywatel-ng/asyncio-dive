@@ -22,11 +22,14 @@ uv sync
 #### Run pytest
 
 
-- `uv run pytest --spec`
+(optionally with mypy and spec renderer)
+
+- `uv run pytest --spec --mypy`
 
 - ...or activate venv and run pytest directly:
 
 ```
 source .venv/bin/activate
-pytest --spec
+pytest --spec --mypy
 ```
+
