@@ -4,9 +4,13 @@ from typing import Iterable
 from pathlib import Path
 
 
-def traverse(directory: Path) -> Iterable[Path]:
-    pass
-
+def ls(path: Path) -> Iterable[Path]:
+    # nice-to-have: change to match
+    path = Path(path)
+    if path.is_dir():
+        yield from map(ls, path.iterdir())
+    else:
+        yield path
 
 def main():
     print("Hello from asyncio-dive!")
@@ -14,3 +18,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
