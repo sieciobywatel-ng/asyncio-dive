@@ -5,3 +5,11 @@ description = "Refresh asyncio knowledge"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "pytest-spec>=4.0.0",
+    "pytest-watch>=4.2.0",
+]
