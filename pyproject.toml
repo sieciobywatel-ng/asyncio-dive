@@ -11,5 +11,5 @@ dev = [
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
     "pytest-spec>=4.0.0",
-    "pytest-watch>=4.2.0",
+    "pytest-watcher>=0.4.3",
 ]
