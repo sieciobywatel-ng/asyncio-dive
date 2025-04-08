@@ -6,6 +6,7 @@ from pathlib import Path
 from functools import partial
 
 import asyncio
+import random
 import logging
 
 logging.basicConfig(
@@ -17,6 +18,9 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__file__)
+
+# to randomize execution time:
+nap = partial(asyncio.sleep, random.uniform(0, 0.1))
 
 
 def ls(path: Path) -> Generator[Path, None, None]:
@@ -39,13 +43,16 @@ def consume(task):
 
 
 async def als(path: Path):
-    await asyncio.sleep(0) # we need at least one await
+    spawned = set()  # we need non-weak ref to tasks
     asyncio.current_task().add_done_callback(consume)  # TODO: inject consumer
     if path.is_dir():
         loop = asyncio.get_running_loop()
         logger.debug(f" * listing directory: {path}")
         for child in path.iterdir():
             task = loop.create_task(als(child))
+            spawned.add(task)
+        await nap()
+    await asyncio.gather(*spawned)
     return path
 
 

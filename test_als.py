@@ -19,21 +19,20 @@ class TestASynchronousFileLister:
         stdout, stderr = capsys.readouterr()
         assert str(path) in stdout
 
-    @tbd
     async def test_works_on_a_directory(self, tree, capsys):
-        listing = als(tree)
-        entries = list(listing)
-        assert any(os.path.basename(p) == 'bar' for p in entries)
+        await asyncio.gather(als(tree))
+        stdout, stderr = capsys.readouterr()
+        assert 'tree/' in stdout
 
-    @tbd
     async def test_is_able_to_traverse(self, tree, capsys):
         expected = {
-            'foo',
-            'bar', # x2
-            'egg',
-            'spam'
+            'tree/bar',
+            'tree/egg',
+            'tree/foo/',
+            'tree/foo/bar/',
+            'tree/foo/bar/spam',
         }
-        results = als(tree)
-        listed = [os.path.basename(p) for p in results]
-        for name in expected:
-            assert name in listed
+        await asyncio.gather(als(tree))
+        stdout, stderr = capsys.readouterr()
+        for path in expected:
+            assert path in stdout
