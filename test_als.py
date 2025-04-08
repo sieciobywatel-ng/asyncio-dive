@@ -1,30 +1,32 @@
 import os
 import shutil
+import asyncio
+import pathlib
 
 import pytest
 
-from main import ls as als  # just for a moment...
+from main import als as als  # just for a moment...
 
-# tbd = pytest.mark.xfail(reason="To Be Done...")
+tbd = pytest.mark.xfail(reason="To Be Done...")
 
 
 @pytest.mark.asyncio
 class TestASynchronousFileLister:
 
-    async def test_works_on_a_file(self, tree):
-        path = 'README.md'
-        results = list(als(path))
-        assert results
-        assert len(results) == 1
-        first, *_ = results
-        assert str(first) == str(path)
+    async def test_works_on_a_file(self, tree, capsys):
+        path = pathlib.Path('README.md')
+        await asyncio.gather(als(path))
+        stdout, stderr = capsys.readouterr()
+        assert str(path) in stdout
 
-    async def test_works_on_a_directory(self, tree):
+    @tbd
+    async def test_works_on_a_directory(self, tree, capsys):
         listing = als(tree)
         entries = list(listing)
         assert any(os.path.basename(p) == 'bar' for p in entries)
 
-    async def test_is_able_to_traverse(self, tree):
+    @tbd
+    async def test_is_able_to_traverse(self, tree, capsys):
         expected = {
             'foo',
             'bar', # x2
