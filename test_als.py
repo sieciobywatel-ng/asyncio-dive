@@ -8,9 +8,10 @@ from main import ls as als  # just for a moment...
 # tbd = pytest.mark.xfail(reason="To Be Done...")
 
 
+@pytest.mark.asyncio
 class TestASynchronousFileLister:
 
-    def test_works_on_a_file(self, tree):
+    async def test_works_on_a_file(self, tree):
         path = 'README.md'
         results = list(als(path))
         assert results
@@ -18,12 +19,12 @@ class TestASynchronousFileLister:
         first, *_ = results
         assert str(first) == str(path)
 
-    def test_works_on_a_directory(self, tree):
+    async def test_works_on_a_directory(self, tree):
         listing = als(tree)
         entries = list(listing)
         assert any(os.path.basename(p) == 'bar' for p in entries)
 
-    def test_is_able_to_traverse(self, tree):
+    async def test_is_able_to_traverse(self, tree):
         expected = {
             'foo',
             'bar', # x2
