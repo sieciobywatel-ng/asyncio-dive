@@ -33,11 +33,11 @@ def alogged(fn):
 
     @wraps(fn)
     async def inner(*args, **kwargs):
-        logger.log(f"   called: {fn.__name__}(...)")
-        logger.log(f"   |--> {format(*args, **kwargs)}")
+        logger.debug(f"   called: {fn.__name__}(...)")
+        logger.debug(f"   |--> {format(*args, **kwargs)}")
         result = await fn(*args, **kwargs)
-        result and logger.log(logging.DEBUG, f"   returns: {fn.__name__}(...)")
-        result and logger.log(logging.DEBUG, f"   <--| {result}")
+        result and logger.debug(f"   returns: {fn.__name__}(...)")
+        result and logger.debug(f"   <--| {result}")
         return result
     return inner
 
@@ -48,10 +48,10 @@ def logged(fn):
 
     @wraps(fn)
     def inner(*args, **kwargs):
-        logger.log(logging.DEBUG, f"   called: {fn.__name__}(...)")
-        logger.log(logging.DEBUG, f"   |--> {format(*args, **kwargs)}")
+        logger.debug(f"   called: {fn.__name__}(...)")
+        logger.debug(f"   |--> {format(*args, **kwargs)}")
         result = fn(*args, **kwargs)
-        result and logger.log(logging.DEBUG, f"   returns: {fn.__name__}(...)")
-        result and logger.log(logging.DEBUG, f"   <--| {result}")
+        result and logger.debug(f"   returns: {fn.__name__}(...)")
+        result and logger.debug(f"   <--| {result}")
         return result
     return inner
